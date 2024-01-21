@@ -31,48 +31,39 @@
 
 6. Создать как минимум 4 комментария к разным объектам модели Post (в каждом объекте должен быть как минимум один комментарий):
 
-	1. c1=Comment.objects.create(post=p1, user=u2, text='ИИ упрощает выполнение некоторых этапов в заботе')
-	2. c2=Comment.objects.create(post=p1, user=u1, text='Я музыкант и против использования ИИ. Применение ИИ нарушает авторские права')
-	3. c3=Comment.objects.create(post=p2, user=u2, text='Наша тур-фирма уже применяет ИИ при персонализации данных')
-	4. c4=Comment.objects.create(post=p3, user=u1, text='Royal Caribbean и Carnival отличные компании')
+	1. c1=Comment.objects.create(post=p1, user=u2, comment_text='ИИ упрощает выполнение некоторых этапов в заботе')
+	2. c2=Comment.objects.create(post=p1, user=u1, comment_text='Я музыкант и против использования ИИ. Применение ИИ нарушает авторские права')
+	3. c3=Comment.objects.create(post=p2, user=u2, comment_text='Наша тур-фирма уже применяет ИИ при персонализации данных')
+	4. c4=Comment.objects.create(post=p3, user=u1, comment_text='Royal Caribbean и Carnival отличные компании')
 
-7. Применяя функции like() и dislike() к статьям/новостям и комментариям, скорректировать рейтинги этих объектов:
+7. Применяя функции like() и dislike() к статьям/новостям и комментариям, скорректировать рейтинги этих объектов:
 
 	1. p1.dislike()
 	2. p2.like()
 	3. p3.like()
-	4. p1.rating
-	5. p2.rating
-	6. p3.rating
-	7. c1.like()
-	8. c2.dislike()
-	9. c3.like()
-	10. c4.like()
-	11. c1.rating
-	12. c2.rating
-	13. c3.rating
-	14. c4.rating
+	4. c1.like()
+	5. c2.dislike()
+	6. c3.like()
+	7. c4.like()
 
 8. Обновить рейтинги пользователей:
 
 	1. a1.update_rating()
 	2. a2.update_rating()
-	3. a1.rating
-	4. a2.rating
 
 9. Вывести username и рейтинг лучшего пользователя (применяя сортировку и возвращая поля первого объекта):
 
 	1. best_user = Author.objects.order_by('-rating').values('user__username', 'rating').first()
 	2. best_user
 
-10. Вывести дату добавления, username автора, рейтинг, заголовок и превью лучшей статьи, основываясь на лайках/дислайках к этой статье:
+10. Вывести дату добавления, username автора, рейтинг, заголовок и превью лучшей статьи, основываясь на лайках/дислайках к этой статье:
 
-	1. best_post = Post.objects.order_by('-rating').values('date', 'author__user__username', 'rating', 'title').first()
+	1. best_post = Post.objects.order_by('-rating').values('datetime', 'author__user__username', 'rating', 'title').first()
 	2. best_post
-	3. best_post_for_preview = Post.objects.order_by('-rating').first()
-	4. best_post_for_preview.preview()
+	3. best_post_preview = Post.objects.order_by('-rating').first()
+	4. best_post_preview.preview()
 
 11. Вывести все комментарии (дата, пользователь, рейтинг, текст) к этой статье:
 
-	1. comments = Comment.objects.filter(post=best_post_for_preview).values('date_in', 'user__username', 'rating', 'text')
+	1. comments = Comment.objects.filter(post=best_post_for_preview).values('datetime', 'user__username', 'rating', 'comment_text')
 	2. comments
